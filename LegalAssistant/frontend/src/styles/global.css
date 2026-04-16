@@ -1,0 +1,462 @@
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "SF Pro Icons", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  line-height: 1.5;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+textarea {
+  font: inherit;
+}
+
+.app-shell {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Modern macOS style gradient background */
+  background: radial-gradient(circle at 15% 50%, #fdfbfb, #ebedee 100%), linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+  background-blend-mode: overlay;
+  padding: 20px;
+}
+
+.backdrop {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.8;
+  z-index: 0;
+}
+
+.backdrop-left {
+  top: 10%;
+  left: 20%;
+  width: 40vw;
+  height: 40vw;
+  background: rgba(255, 184, 210, 0.4);
+}
+
+.backdrop-right {
+  bottom: 10%;
+  right: 20%;
+  width: 35vw;
+  height: 35vw;
+  background: rgba(161, 196, 253, 0.5);
+}
+
+.panel {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  max-width: 800px;
+  height: 85vh;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1), 0 0 0 1px rgba(255,255,255,0.4) inset;
+  overflow: hidden;
+}
+
+.panel-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+  background: rgba(255, 255, 255, 0.4);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  z-index: 2;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.icon-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: linear-gradient(135deg, #0A7AFF 0%, #34A0FF 100%);
+  border-radius: 10px;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.22);
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  width: 22px;
+  height: 22px;
+}
+
+.title-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.panel-header p {
+  margin: 0 0 2px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #86868b;
+}
+
+.panel-header h1 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #1d1d1f;
+}
+
+.chat-shell {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  scroll-behavior: smooth;
+}
+
+.chat-shell::-webkit-scrollbar {
+  width: 6px;
+}
+.chat-shell::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+}
+
+.empty-state {
+  text-align: center;
+  margin: auto;
+  color: #86868b;
+}
+
+.empty-state p {
+  font-size: 15px;
+  margin-bottom: 16px;
+}
+
+.empty-state ul {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.empty-state li {
+  background: rgba(255, 255, 255, 0.7);
+  padding: 12px 20px;
+  border-radius: 16px;
+  font-size: 14px;
+  color: #1d1d1f;
+  border: 1px solid rgba(255,255,255,0.8);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  cursor: default;
+}
+
+.bubble {
+  max-width: 75%;
+  padding: 12px 18px;
+  font-size: 15px;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.bubble-user {
+  align-self: flex-end;
+  background: linear-gradient(145deg, #0A7AFF 0%, #0056DF 100%);
+  color: white;
+  border-radius: 20px 20px 4px 20px;
+  box-shadow: 0 4px 12px rgba(0, 122, 255, 0.25);
+}
+
+.assistant-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-self: flex-start;
+  max-width: 80%;
+}
+
+.bubble-assistant {
+  align-self: flex-start;
+  background: #E9E9EB;
+  color: #1d1d1f;
+  border-radius: 20px 20px 20px 4px;
+  white-space: normal;
+}
+
+.bubble-assistant p {
+  margin: 0 0 10px 0;
+}
+
+.bubble-assistant p:last-child {
+  margin-bottom: 0;
+}
+
+.bubble-assistant ul, 
+.bubble-assistant ol {
+  margin: 0 0 10px 0;
+  padding-left: 20px;
+}
+
+.bubble-assistant ul:last-child, 
+.bubble-assistant ol:last-child {
+  margin-bottom: 0;
+}
+
+.bubble-assistant li {
+  margin-bottom: 4px;
+}
+
+.bubble-assistant pre, 
+.bubble-assistant code {
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+.bubble-assistant code {
+  padding: 2px 4px;
+  font-size: 0.9em;
+}
+
+.bubble-assistant pre {
+  padding: 12px;
+  overflow-x: auto;
+}
+
+.bubble-assistant pre code {
+  background: none;
+  padding: 0;
+  font-size: 14px;
+}
+
+.bubble-assistant strong {
+  font-weight: 600;
+}
+
+.assistant-group .bubble-assistant {
+  max-width: 100%;
+}
+
+.loading-dots {
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 12px 18px;
+  height: 46px;
+  background: #E9E9EB;
+  border-radius: 20px 20px 20px 4px;
+  width: fit-content;
+}
+
+.loading-dots span {
+  width: 6px;
+  height: 6px;
+  background-color: #8e8e93;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+.citations {
+  margin-top: 4px;
+  padding-left: 8px;
+}
+
+.citations h2 {
+  font-size: 12px;
+  color: #86868b;
+  margin: 0 0 8px;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.citation-card {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 8px;
+  font-size: 13px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+}
+
+.citation-meta {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  font-size: 12px;
+}
+
+.citation-meta strong {
+  color: #1d1d1f;
+  font-weight: 600;
+}
+
+.citation-meta span {
+  color: #007AFF;
+}
+
+.citation-card p {
+  margin: 0;
+  color: #515154;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.composer-container {
+  padding: 16px 24px 24px;
+  background: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid rgba(0,0,0,0.05);
+}
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 20px;
+  padding: 8px 12px 8px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+  transition: border-color 0.2s;
+}
+
+.composer:focus-within {
+  border-color: rgba(0, 122, 255, 0.4);
+}
+
+.composer textarea {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 6px 0;
+  font-size: 15px;
+  resize: none;
+  outline: none;
+  max-height: 120px;
+  min-height: 22px;
+  font-family: inherit;
+  color: #1d1d1f;
+}
+
+.composer textarea::placeholder {
+  color: #8e8e93;
+}
+
+.composer button {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+  border: none;
+  background: #007AFF;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  margin-bottom: 2px;
+}
+
+.composer button:disabled {
+  background: #e5e5ea;
+  color: #8e8e93;
+  cursor: not-allowed;
+}
+
+.composer button:hover:not(:disabled) {
+  background: #006ce4;
+}
+
+.composer button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.error-banner {
+  background: rgba(255, 59, 48, 0.1);
+  color: #ff3b30;
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+  text-align: center;
+  margin-top: auto;
+}
+
+@media (max-width: 600px) {
+  .panel {
+    height: 100vh;
+    border-radius: 0;
+    max-width: 100%;
+    border: none;
+  }
+  .app-shell {
+    padding: 0;
+  }
+  .bubble {
+    max-width: 85%;
+  }
+  .assistant-group {
+    max-width: 90%;
+  }
+}

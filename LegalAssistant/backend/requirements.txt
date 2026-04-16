@@ -1,0 +1,9 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.30.0
+httpx>=0.27.0
+pydantic-settings>=2.3.0
+python-dotenv>=1.0.1
+llama-index-core>=0.12.0
+llama-index-embeddings-openai-like>=0.3.0
+llama-index-vector-stores-qdrant>=0.4.0
+qdrant-client>=1.11.0
